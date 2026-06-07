@@ -1,6 +1,6 @@
 {
   "name": "habit-heatmap-calendar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Heatmap to track habits in a calendar format",
   "main": "main.js",
   "scripts": {
