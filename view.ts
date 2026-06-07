@@ -9,8 +9,8 @@ const STATE_CYCLE: DayState[] = ["none", "done", "skip"];
 
 const WEEKDAY_LABELS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
 
 const MIN_YEAR = 2025;
@@ -259,7 +259,7 @@ export class HabitHeatmapView extends ItemView {
       const stateText = this.stateLabel(state);
       cell.setAttribute(
         "title",
-        `${d} ${MONTH_NAMES[month]} ${year}${stateText ? " · " + stateText : ""}`
+        `${d} ${MONTH_NAMES[month]}${stateText ? " · " + stateText : ""}`
       );
 
       if (!isFuture) {

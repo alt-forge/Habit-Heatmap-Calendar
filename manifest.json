@@ -1,7 +1,7 @@
 {
   "id": "habit-heatmap-calendar",
   "name": "Habit Heatmap Calendar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "0.15.0",
   "description": "Heatmap to track habits in a calendar format",
   "author": "alt-forge",
