@@ -1,44 +1,24 @@
-# Habit Heatmap Calendar 📅
+# Habit Heatmap Calendar
 
-A small Obsidian plugin for tracking habits with a simple heatmap view.
+Track your daily habits at a glance. A clean, heatmap-style calendar for Obsidian — no notes required.
 
-## ✨ Features
+## Features
 
-* Add as many habits as you want
-* Mark days as completed or missed
-* View yearly statistics
-* Switch between different years
-* Store all data in a single JSON file
+- Multiple habits with one-click tracking: `Not tracked → Done → Missed`
+- Full year heatmap with month grids, streak counter, and stats
+- Browse past years or jump back to today
+- All data in a single `data.json`, zero clutter
 
-The plugin does not create any notes and keeps your vault clean.
+## Usage
 
-## 🚀 How to use
+1. Click the **calendar icon** in the ribbon or run the command *"Open Habit Heatmap"*
+2. Click **+ Add habit**, then click any day to toggle
 
-1. Open Habit Heatmap from the sidebar icon.
-2. Click **Add Habit**.
-3. Select a habit from the list.
-4. Click on any day:
+## Installation
 
-   * 🟢 Completed
-   * 🔴 Missed
-   * ⚪ Not tracked
+**BRAT** (recommended): add `alt-forge/Habit-Heatmap-Calendar`  
+**Manual**: download from [releases](https://github.com/alt-forge/Habit-Heatmap-Calendar/releases) into `.obsidian/plugins/`
 
-## 💾 Data Storage
-
-All habit data is automatically saved in:
-
-`.obsidian/plugins/habit-heatmap-calendar/data.json`
-
-You can back up or sync this file together with your vault.
-
-## 📦 Installation
-
-Download the plugin files and place the `habit-heatmap-calendar` folder into:
-
-`.obsidian/plugins/`
-
-Then enable the plugin in Obsidian settings.
-
-## 📄 License
+## License
 
 MIT
