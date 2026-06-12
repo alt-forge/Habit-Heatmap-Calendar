@@ -77,7 +77,7 @@ export default class HabitHeatmapPlugin extends Plugin {
       await leaf.setViewState({ type: HEATMAP_VIEW_TYPE, active: true });
     }
 
-    workspace.revealLeaf(leaf);
+    void workspace.revealLeaf(leaf);
   }
 
   private restoreView(): void {}
