@@ -26,15 +26,15 @@ export default class HabitHeatmapPlugin extends Plugin {
       (leaf: WorkspaceLeaf) => new HabitHeatmapView(leaf, this)
     );
 
-    this.addRibbonIcon("calendar-check-2", "Habit Heatmap", async () => {
-      await this.activateView();
+    this.addRibbonIcon("calendar-check-2", "Habit Heatmap", () => {
+      void this.activateView();
     });
 
     this.addCommand({
       id: "open-habit-heatmap",
       name: "Open Habit Heatmap",
-      callback: async () => {
-        await this.activateView();
+      callback: () => {
+        void this.activateView();
       },
     });
 
@@ -47,12 +47,11 @@ export default class HabitHeatmapPlugin extends Plugin {
 
   onunload(): void {
     console.log("[HabitHeatmap] Unloading plugin");
-    this.app.workspace.detachLeavesOfType(HEATMAP_VIEW_TYPE);
   }
 
 
   async loadData(): Promise<void> {
-    const saved = await super.loadData();
+    const saved = (await super.loadData()) as Partial<HabitData> | null;
     this.data = Object.assign({}, DEFAULT_DATA, saved ?? {});
 
     if (!this.data.habits) this.data.habits = [];
@@ -81,8 +80,5 @@ export default class HabitHeatmapPlugin extends Plugin {
     workspace.revealLeaf(leaf);
   }
 
-  private restoreView(): void {
-    if (this.app.workspace.getLeavesOfType(HEATMAP_VIEW_TYPE).length === 0) {
-    }
-  }
+  private restoreView(): void {}
 }

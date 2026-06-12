@@ -66,10 +66,9 @@ export class HabitHeatmapView extends ItemView {
         if (h === activeHabit) opt.selected = true;
       });
     }
-    select.addEventListener("change", async () => {
+    select.addEventListener("change", () => {
       this.plugin.data.activeHabit = select.value;
-      await this.plugin.saveData();
-      this.render();
+      void this.plugin.saveData().then(() => this.render());
     });
 
     const addBtn = selectorWrap.createEl("button", {
@@ -263,8 +262,8 @@ export class HabitHeatmapView extends ItemView {
       );
 
       if (!isFuture) {
-        cell.addEventListener("click", async () => {
-          await this.toggleDayState(habit, key, cell);
+        cell.addEventListener("click", () => {
+          void this.toggleDayState(habit, key, cell);
         });
       }
     }
@@ -330,7 +329,8 @@ export class HabitHeatmapView extends ItemView {
   }
 
   private showAddHabitModal(): void {
-    const overlay = document.body.createDiv({ cls: "habit-heatmap-modal-overlay" });
+    const doc = this.containerEl.ownerDocument;
+    const overlay = doc.body.createDiv({ cls: "habit-heatmap-modal-overlay" });
     const modal = overlay.createDiv({ cls: "habit-heatmap-modal" });
     modal.createEl("h3", { text: "Add new habit" });
 
@@ -338,8 +338,6 @@ export class HabitHeatmapView extends ItemView {
       type: "text",
       placeholder: "e.g. Morning run, Read 20 pages…",
     });
-    input.style.display = "block";
-
     const actions = modal.createDiv({ cls: "habit-heatmap-modal-actions" });
 
     actions.createEl("button", {
@@ -351,7 +349,8 @@ export class HabitHeatmapView extends ItemView {
       const name = input.value.trim();
       if (!name) return;
       if (this.plugin.data.habits.includes(name)) {
-        input.style.borderColor = "var(--text-error, #e05252)";
+        input.addClass("habit-heatmap-input-error");
+        input.addEventListener("input", () => input.removeClass("habit-heatmap-input-error"), { once: true });
         return;
       }
       this.plugin.data.habits.push(name);
@@ -365,26 +364,27 @@ export class HabitHeatmapView extends ItemView {
     actions.createEl("button", {
       cls: "habit-heatmap-btn habit-heatmap-btn-primary",
       text: "Add",
-    }).addEventListener("click", save);
+    }).addEventListener("click", () => void save());
 
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") save();
+    input.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Enter") void save();
       if (e.key === "Escape") overlay.remove();
     });
 
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
-    setTimeout(() => input.focus(), 50);
+    overlay.addEventListener("click", (e: MouseEvent) => { if (e.target === overlay) overlay.remove(); });
+    window.setTimeout(() => input.focus(), 50);
   }
 
 
   private confirmRemoveHabit(habit: string): void {
-    const overlay = document.body.createDiv({ cls: "habit-heatmap-modal-overlay" });
+    const doc = this.containerEl.ownerDocument;
+    const overlay = doc.body.createDiv({ cls: "habit-heatmap-modal-overlay" });
     const modal = overlay.createDiv({ cls: "habit-heatmap-modal" });
 
     modal.createEl("h3", { text: `Remove "${habit}"?` });
     modal.createEl("p", {
       text: "All recorded data for this habit will be deleted. This cannot be undone.",
-    }).style.cssText = "font-size:0.875rem;color:var(--text-muted);margin:0 0 16px";
+    }).addClass("habit-heatmap-modal-description");
 
     const actions = modal.createDiv({ cls: "habit-heatmap-modal-actions" });
 
@@ -396,17 +396,15 @@ export class HabitHeatmapView extends ItemView {
     actions.createEl("button", {
       cls: "habit-heatmap-btn habit-heatmap-btn-danger",
       text: "Delete",
-    }).addEventListener("click", async () => {
+    }).addEventListener("click", () => {
       this.plugin.data.habits = this.plugin.data.habits.filter((h) => h !== habit);
       delete this.plugin.data.records[habit];
       this.plugin.data.activeHabit =
         this.plugin.data.habits[this.plugin.data.habits.length - 1] ?? null;
-      await this.plugin.saveData();
-      overlay.remove();
-      this.render();
+      void this.plugin.saveData().then(() => { overlay.remove(); this.render(); });
     });
 
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.addEventListener("click", (e: MouseEvent) => { if (e.target === overlay) overlay.remove(); });
   }
 
   private dateKey(year: number, month: number, day: number): string {

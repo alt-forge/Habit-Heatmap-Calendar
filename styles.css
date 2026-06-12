@@ -70,13 +70,13 @@
   letter-spacing: -0.01em;
 }
 
-.habit-heatmap-nav-btn {
+button.habit-heatmap-nav-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  padding: 0 !important;
+  padding: 0;
   border-radius: 6px;
   font-size: 1rem;
   font-family: var(--font-interface);
@@ -98,11 +98,11 @@
   cursor: not-allowed;
 }
 
-.habit-heatmap-today-btn {
-  font-size: 0.72rem !important;
-  padding: 3px 8px !important;
-  height: auto !important;
-  width: auto !important;
+.habit-heatmap-btn.habit-heatmap-today-btn {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  height: auto;
+  width: auto;
 }
 
 /* ── Buttons ─────────────────────────────────────────────── */
@@ -274,8 +274,8 @@
 }
 
 /* ── Today indicator ─────────────────────────────────────── */
-.habit-heatmap-day.is-today {
-  border-color: var(--interactive-accent) !important;
+.habit-heatmap-day.is-today[data-state] {
+  border-color: var(--interactive-accent);
 }
 .habit-heatmap-day.is-today::after {
   content: '';
@@ -399,6 +399,16 @@
 }
 .habit-heatmap-modal input[type="text"]:focus {
   border-color: var(--interactive-accent);
+}
+
+.habit-heatmap-modal-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+
+.habit-heatmap-modal input[type="text"].habit-heatmap-input-error {
+  border-color: var(--text-error, #e05252);
 }
 
 .habit-heatmap-modal-actions {
