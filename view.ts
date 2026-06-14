@@ -261,11 +261,14 @@ export class HabitHeatmapView extends ItemView {
         `${d} ${MONTH_NAMES[month]}${stateText ? " · " + stateText : ""}`
       );
 
-      if (!isFuture) {
-        cell.addEventListener("click", () => {
-          void this.toggleDayState(habit, key, cell);
-        });
-      }
+      cell.addEventListener("click", () => {
+        const cellDate = new Date(year, month, d);
+        cellDate.setHours(0, 0, 0, 0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (cellDate > today) return;
+        void this.toggleDayState(habit, key, cell);
+      });
     }
   }
 

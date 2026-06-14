@@ -293,7 +293,6 @@ button.habit-heatmap-nav-btn {
 .habit-heatmap-day.is-future {
   opacity: 0.2;
   cursor: default;
-  pointer-events: none;
 }
 
 /* ── Tooltip ─────────────────────────────────────────────── */
