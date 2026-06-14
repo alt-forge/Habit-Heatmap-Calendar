@@ -49,7 +49,9 @@ export class HabitHeatmapView extends ItemView {
     const data = this.plugin.data;
     const activeHabit = data.activeHabit;
 
-    const header = this.root.createDiv({ cls: "habit-heatmap-header" });
+    const stickyEl = this.root.createDiv({ cls: "habit-heatmap-sticky" });
+
+    const header = stickyEl.createDiv({ cls: "habit-heatmap-header" });
 
     header.createEl("h2", { cls: "habit-heatmap-title", text: "Habit Heatmap" });
 
@@ -85,8 +87,10 @@ export class HabitHeatmapView extends ItemView {
       delBtn.addEventListener("click", () => this.confirmRemoveHabit(activeHabit));
     }
 
+    const scrollEl = this.root.createDiv({ cls: "habit-heatmap-scroll-area" });
+
     if (!activeHabit || data.habits.length === 0) {
-      const empty = this.root.createDiv({ cls: "habit-heatmap-empty" });
+      const empty = scrollEl.createDiv({ cls: "habit-heatmap-empty" });
       empty.createDiv({ cls: "habit-heatmap-empty-icon", text: "📅" });
       empty.createEl("p", { text: "No habits yet. Add your first habit to get started." });
       const startBtn = empty.createEl("button", {
@@ -97,22 +101,22 @@ export class HabitHeatmapView extends ItemView {
       return;
     }
 
-    this.renderYearNav();
+    this.renderYearNav(stickyEl);
 
     const stats = this.computeStats(activeHabit, this.viewYear);
-    this.renderStats(stats);
+    this.renderStats(stats, stickyEl);
 
-    const monthsEl = this.root.createDiv({ cls: "habit-heatmap-months" });
+    const monthsEl = scrollEl.createDiv({ cls: "habit-heatmap-months" });
     for (let m = 0; m < 12; m++) {
       this.renderMonth(monthsEl, this.viewYear, m, activeHabit);
     }
 
-    this.renderLegend();
+    this.renderLegend(scrollEl);
   }
 
 
-  private renderYearNav(): void {
-    const nav = this.root!.createDiv({ cls: "habit-heatmap-year-nav" });
+  private renderYearNav(parent: HTMLElement): void {
+    const nav = parent.createDiv({ cls: "habit-heatmap-year-nav" });
 
     const prevBtn = nav.createEl("button", {
       cls: "habit-heatmap-btn habit-heatmap-nav-btn",
@@ -190,8 +194,8 @@ export class HabitHeatmapView extends ItemView {
     return { done, skip, streak, yearTotal };
   }
 
-  private renderStats(stats: { done: number; skip: number; streak: number; yearTotal: number }): void {
-    const bar = this.root!.createDiv({ cls: "habit-heatmap-stats" });
+  private renderStats(stats: { done: number; skip: number; streak: number; yearTotal: number }, parent: HTMLElement): void {
+    const bar = parent.createDiv({ cls: "habit-heatmap-stats" });
     this.createStat(bar, String(stats.streak), "🔥 Streak", "accent");
     this.createStat(bar, String(stats.done), "Done", "green");
     this.createStat(bar, String(stats.skip), "Missed", "red");
@@ -317,8 +321,8 @@ export class HabitHeatmapView extends ItemView {
     statsEl.replaceWith(bar);
   }
 
-  private renderLegend(): void {
-    const legend = this.root!.createDiv({ cls: "habit-heatmap-legend" });
+  private renderLegend(parent: HTMLElement): void {
+    const legend = parent.createDiv({ cls: "habit-heatmap-legend" });
     const items = [
       { cls: "none", label: "Not tracked" },
       { cls: "done", label: "Done ✓" },

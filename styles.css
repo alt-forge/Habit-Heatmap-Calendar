@@ -1,9 +1,23 @@
 .habit-heatmap-container {
-  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
   font-family: var(--font-interface);
-  overflow-y: auto;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.habit-heatmap-sticky {
+  flex-shrink: 0;
+  background: var(--background-secondary);
+  padding: 24px 24px 4px;
+}
+
+.habit-heatmap-scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0 24px 32px;
 }
 
 /* ── Header ─────────────────────────────────────────────── */
