@@ -2,6 +2,8 @@
 
 Track your daily habits at a glance. A clean, heatmap-style calendar for Obsidian that helps you stay consistent — no notes required.
 
+![Habit Heatmap Calendar](preview.png)
+
 ## ✨ Features
 
 - **Multiple habits** — Add as many as you want and switch between them
@@ -25,22 +27,6 @@ Track your daily habits at a glance. A clean, heatmap-style calendar for Obsidia
 | 3rd click | ⬜ Not tracked |
 
 The stats bar updates instantly so you always know where you stand.
-
-*Screenshots coming soon*
-
-## 📦 Installation
-
-### From BRAT (recommended for now)
-
-1. Install the [BRAT](https://obsidian.md/plugins?id=obsidian-42-brat) plugin
-2. Add `alt-forge/Habit-Heatmap-Calendar` to the list of beta plugins
-3. Enable **Habit Heatmap Calendar** in Community Plugins
-
-### Manual
-
-1. Download the latest release from [GitHub](https://github.com/alt-forge/Habit-Heatmap-Calendar/releases)
-2. Extract the folder into `.obsidian/plugins/`
-3. Enable the plugin in Obsidian settings
 
 ## 💾 Data
 
